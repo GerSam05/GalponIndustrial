@@ -69,7 +69,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Error en peticion de NumeroGalpon con Id=0");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessage = _response.ErrorIdCero();
+                    _response.ErrorIdCero();
                     return BadRequest(_response);
                 }
 
@@ -79,7 +79,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Id de NumeroGalpon No encontrado");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessage = _response.ErrorNotFound(id);
+                    _response.ErrorNotFound(id);
                     return NotFound(_response);
                 }
 
@@ -160,7 +160,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Error en peticion de Id");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessage = _response.ErrorDifId(id, updateDto.NroGalpon);
+                    _response.ErrorDifId(id, updateDto.NroGalpon);
                     return BadRequest(_response);
                 }
                 
@@ -170,7 +170,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Id de NumeroGalpon No encontrado");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessage = _response.ErrorNotFound(id);
+                    _response.ErrorNotFound(id);
                     return NotFound(_response);
                 }
 
@@ -184,8 +184,8 @@ namespace GalponIndustrial_API.Controllers
                 nroGalpon.FechaCreacion = existingNroGalpon.FechaCreacion;
 
                 await _nroGalponRepo.Actualizar(nroGalpon);
-                _response.Resultado = _response.Editado();
                 _response.StatusCode = HttpStatusCode.NoContent;
+                _response.Editado();
 
                 return Ok(_response);
             }
@@ -212,7 +212,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Error en peticion de NumeroGalpon con Id=0");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessage = _response.ErrorIdCero();
+                    _response.ErrorIdCero();
                     return BadRequest(_response);
                 }
                 var nroGalponToDelete = await _nroGalponRepo.Obtener(n => n.NroGalpon == id);
@@ -221,11 +221,11 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Id de NumeroGalpon No encontrado");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessage = _response.ErrorNotFound(id);
+                    _response.ErrorNotFound(id);
                     return NotFound(_response);
                 }
                 await _nroGalponRepo.Borrar(nroGalponToDelete);
-                _response.Resultado = _response.Eliminado();
+                _response.Eliminado();
                 _response.StatusCode = HttpStatusCode.NoContent;
 
                 return Ok(_response);
@@ -253,7 +253,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Id de NumeroGalpon No encontrado");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.ErrorMessage = _response.ErrorNotFound(id);
+                    _response.ErrorNotFound(id);
                     return NotFound(_response);
                 }
                 if (jsonPatch == null || jsonPatch.Operations.Count == 0 || jsonPatch.Operations.Any(o => o.op != "replace"))
@@ -261,7 +261,7 @@ namespace GalponIndustrial_API.Controllers
                     _logger.LogError("Error al Actualizar, Json Nulo");
                     _response.IsExitoso = false;
                     _response.StatusCode = HttpStatusCode.BadRequest;
-                    _response.ErrorMessage = _response.ErrorJson();
+                    _response.ErrorJson();
                     return BadRequest(_response);
                 }
 
@@ -278,7 +278,7 @@ namespace GalponIndustrial_API.Controllers
 
                 await _nroGalponRepo.Actualizar(nroGalponActualizado);
                 _response.StatusCode = HttpStatusCode.NoContent;
-                _response.Resultado = _response.Editado();
+                _response.Editado();
                 return Ok(_response);
             }
             catch (Exception ex)
