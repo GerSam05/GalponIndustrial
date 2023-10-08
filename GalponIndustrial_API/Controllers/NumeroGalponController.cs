@@ -268,11 +268,13 @@ namespace GalponIndustrial_API.Controllers
                 NumeroGalponUpdateDto nroGalponDto = _mapper.Map<NumeroGalponUpdateDto>(nroGalpon);
 
                 jsonPatch.ApplyTo(nroGalponDto);
-                if (!ModelState.IsValid)
+
+                if (!TryValidateModel(nroGalponDto))
                 {
                     _logger.LogError("ModelState Inválido");
                     return BadRequest(ModelState);
                 }
+                
                 NumeroGalpon nroGalponActualizado = _mapper.Map<NumeroGalpon>(nroGalponDto);
                 nroGalponActualizado.FechaCreacion = nroGalpon.FechaCreacion;
 
